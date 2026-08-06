@@ -238,3 +238,106 @@ a { color: inherit; text-decoration: none; }
   .nav-links { display: none; }
   .gate-card { padding: 22px 18px; }
 }
+
+/* ---------- prose / legal documents ---------- */
+
+.prose { max-width: 68ch; }
+.prose h1 {
+  font-family: Georgia, serif; font-size: 27px; font-weight: 600;
+  color: var(--navy); margin-bottom: 14px; text-wrap: balance;
+}
+.prose h2 {
+  font-family: Georgia, serif; font-size: 19px; font-weight: 600;
+  color: var(--navy); margin: 26px 0 8px;
+}
+.prose h3 { font-size: 15px; font-weight: 600; margin: 20px 0 6px; }
+.prose h4 { font-size: 13.5px; font-weight: 600; margin: 16px 0 6px; }
+.prose p { font-size: 14px; margin-bottom: 12px; }
+.prose ul { font-size: 14px; padding-left: 22px; margin-bottom: 14px; }
+.prose li { margin-bottom: 6px; }
+.prose hr { border: none; border-top: 1px solid var(--line); margin: 26px 0; }
+.prose em { color: var(--ink-soft); }
+
+.draft-notice {
+  background: #fff8e6; border: 1px solid #e8d49a; border-left: 3px solid #b8860b;
+  border-radius: 3px; padding: 14px 16px; margin-bottom: 26px;
+  font-size: 13px; line-height: 1.6; max-width: 68ch;
+}
+.draft-notice strong { color: #7a5a00; }
+.draft-notice a { color: var(--blue); text-decoration: underline; }
+
+/* ---------- breadcrumb ---------- */
+
+.breadcrumb { font-size: 11.5px; color: var(--ink-soft); margin-bottom: 8px; }
+.breadcrumb a { color: var(--blue); }
+
+/* ---------- empty state ---------- */
+
+.empty-state {
+  background: #fff; border: 1px solid var(--line); border-radius: 5px;
+  padding: 40px; text-align: center; max-width: 60ch; margin: 0 auto;
+}
+.empty-state h2 {
+  font-family: Georgia, serif; font-size: 19px; color: var(--navy); margin-bottom: 10px;
+}
+.empty-state p { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 8px; }
+.empty-state a { color: var(--blue); text-decoration: underline; }
+.empty-note { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-top: 14px; }
+
+/* ---------- tables ---------- */
+
+.table-scroll { overflow-x: auto; }
+.data-table { width: 100%; border-collapse: collapse; background: #fff; font-size: 13px; }
+.data-table th, .data-table td {
+  text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line);
+}
+.data-table th {
+  font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--ink-soft); background: #eef2f7;
+}
+.data-table .mono { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+.data-table .num { font-variant-numeric: tabular-nums; }
+.data-table a { color: var(--blue); text-decoration: underline; }
+
+/* ---------- FAQ ---------- */
+
+.faq { max-width: 72ch; }
+.faq-item { border-top: 1px solid var(--line); padding: 18px 0; }
+.faq-item dt {
+  font-family: Georgia, serif; font-size: 16px; font-weight: 600;
+  color: var(--navy); margin-bottom: 8px;
+}
+.faq-item dd { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+.faq-item a { color: var(--blue); text-decoration: underline; }
+
+/* ---------- two column + callout ---------- */
+
+.two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+.callout {
+  background: #eef2f7; border: 1px solid var(--line); border-left: 3px solid var(--blue);
+  border-radius: 4px; padding: 20px;
+}
+.callout h2 {
+  font-family: Georgia, serif; font-size: 16px; color: var(--navy); margin-bottom: 8px;
+}
+.callout p { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 8px; }
+.callout a { color: var(--blue); text-decoration: underline; }
+
+.contact-line { font-size: 14px; }
+.placeholder-inline {
+  background: #fff8e6; border: 1px dashed #e8d49a; border-radius: 2px;
+  padding: 1px 6px; font-size: 13px; color: #7a5a00;
+}
+
+/* ---------- footer nav ---------- */
+
+.footer-nav {
+  display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 24px;
+  padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.footer-nav a { font-size: 12.5px; color: #a8b8d4; }
+.footer-nav a:hover { color: #fff; }
+
+@media (max-width: 720px) {
+  .two-col { grid-template-columns: 1fr; gap: 26px; }
+}

@@ -50,6 +50,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
         <footer className="site-footer">
           <div className="footer-inner">
+            <nav className="footer-nav">
+              <Link href="/shop">Catalog</Link>
+              <Link href="/coa-library">COA Library</Link>
+              <Link href="/wholesale">Wholesale</Link>
+              <Link href="/faq">FAQ</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
+              <Link href="/refund-policy">Refund Policy</Link>
+              <Link href="/contact">Contact</Link>
+            </nav>
             <p className="disclaimer">
               FOR RESEARCH USE ONLY. NOT FOR HUMAN OR ANIMAL USE. All products offered on
               this site are intended solely for in-vitro laboratory research by qualified
