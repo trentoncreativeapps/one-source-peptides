@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import VialImage from '@/components/VialImage';
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -90,6 +91,9 @@ export default async function CategoryPage({ params }: Props) {
           const sizes = bySize.get(p.id) ?? [];
           return (
             <li key={p.id} className="card">
+              <div className="card-image">
+                <VialImage name={p.name} code={p.code} />
+              </div>
               <div className="card-body">
                 <p className="card-code">{p.code}</p>
                 <h2 className="card-title">{p.name}</h2>

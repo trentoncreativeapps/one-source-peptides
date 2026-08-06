@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import VialImage from '@/components/VialImage';
 
 export const metadata = { title: 'Catalog — One Source Peptides' };
 
@@ -90,6 +91,9 @@ export default async function ShopPage() {
           const sizes = bySize.get(p.id) ?? [];
           return (
             <li key={p.id} className="card">
+              <div className="card-image">
+                <VialImage name={p.name} code={p.code} />
+              </div>
               <div className="card-body">
                 <p className="card-code">{p.code}</p>
                 <h2 className="card-title">{p.name}</h2>
