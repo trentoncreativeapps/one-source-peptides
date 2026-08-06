@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { supabaseServiceRoleKey, supabaseUrl } from '@/lib/env';
 
 /**
  * Service-role client. Bypasses ALL row-level security.
@@ -10,10 +11,7 @@ import { createClient } from '@supabase/supabase-js';
  * checking who they are.
  */
 export function createAdminClient() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!key) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set');
-
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, key, {
+  return createClient(supabaseUrl(), supabaseServiceRoleKey(), {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
