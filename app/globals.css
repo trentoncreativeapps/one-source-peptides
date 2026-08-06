@@ -1,0 +1,240 @@
+:root {
+  --navy: #0a1f3d;
+  --navy-deep: #061428;
+  --blue: #0b57c2;
+  --blue-light: #4d8fe3;
+  --paper: #f5f7fa;
+  --ink: #0f1720;
+  --ink-soft: #5c6b80;
+  --line: #dfe5ec;
+  --warn: #b3261e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- chrome ---------- */
+
+.ruo-bar {
+  background: var(--navy-deep);
+  color: #c9d4e4;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 8px 12px;
+}
+.ruo-bar strong { color: #fff; }
+
+.site-header {
+  position: sticky; top: 0; z-index: 40;
+  background: var(--navy);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.nav {
+  max-width: 1200px; margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+.brand { font-size: 18px; font-weight: 600; color: #fff; }
+.brand span { color: var(--blue-light); }
+.nav-links { display: flex; gap: 22px; }
+.nav-links a { font-size: 13px; color: #a8b8d4; }
+.nav-links a:hover { color: #fff; }
+
+.btn-ghost {
+  font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #cfe0f5; border: 1px solid rgba(255,255,255,0.28);
+  padding: 8px 14px; border-radius: 3px; background: none; cursor: pointer;
+}
+.btn-primary {
+  display: inline-block; background: var(--blue); color: #fff;
+  padding: 11px 20px; border-radius: 3px; border: none; cursor: pointer;
+  font-size: 13px; letter-spacing: 0.03em;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+  color: #fff; padding: 72px 24px 60px;
+}
+.hero > * { max-width: 1200px; margin-inline: auto; }
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--blue-light); margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(30px, 3.6vw, 46px); font-weight: 500;
+  line-height: 1.1; text-wrap: balance; margin-bottom: 16px;
+}
+.hero h1 em { color: var(--blue-light); font-weight: 400; }
+.hero-lede { color: #a8b8d4; max-width: 62ch; font-size: 15px; }
+.hero-actions { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+.hero-banner {
+  margin-top: 28px; background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15); border-left: 3px solid var(--warn);
+  border-radius: 3px; padding: 14px 16px; font-size: 12.5px; color: #c8d4e8;
+  max-width: 80ch;
+}
+
+/* ---------- sections ---------- */
+
+.section { max-width: 1200px; margin: 0 auto; padding: 44px 24px 64px; }
+.section-head { margin-bottom: 26px; }
+.section-head h1, .section-head h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px; font-weight: 600; color: var(--navy); margin-bottom: 6px;
+}
+.section-head p { color: var(--ink-soft); font-size: 13.5px; }
+
+.notice { color: var(--warn); font-size: 13.5px; }
+
+.login-prompt {
+  background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--blue);
+  border-radius: 3px; padding: 14px 16px; margin-bottom: 24px; font-size: 13px;
+}
+.login-prompt a { color: var(--blue); text-decoration: underline; }
+
+.cat-tiles { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
+.cat-tiles a {
+  display: block; background: #fff; border: 1px solid var(--line);
+  border-radius: 4px; padding: 18px 26px; font-size: 14px; color: var(--navy);
+}
+.cat-tiles a:hover { border-color: var(--blue); }
+
+/* ---------- product grid ---------- */
+
+.grid {
+  list-style: none; display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.card {
+  background: #fff; border: 1px solid var(--line); border-radius: 5px;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.card-body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card-code {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue);
+}
+.card-title { font-family: Georgia, serif; font-size: 17px; font-weight: 600; }
+.card-desc { font-size: 12.5px; color: var(--ink-soft); flex: 1; }
+
+.spec {
+  display: grid; grid-template-columns: 68px 1fr; gap: 4px 10px;
+  border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px;
+  font-size: 11.5px;
+}
+.spec dt {
+  color: var(--ink-soft); text-transform: uppercase;
+  letter-spacing: 0.06em; font-size: 9.5px; padding-top: 2px;
+}
+.spec dd { color: var(--ink); }
+
+.price-list { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
+.price-list li {
+  display: flex; justify-content: space-between; font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  border-bottom: 1px dotted var(--line); padding-bottom: 3px;
+}
+
+.ruo-badge {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--navy); margin-top: 6px;
+}
+
+/* ---------- footer ---------- */
+
+.site-footer { background: var(--navy-deep); color: #a8b8d4; padding: 40px 24px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.disclaimer { font-size: 11px; line-height: 1.8; }
+
+/* ---------- entry gate ---------- */
+
+.gate-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(6,20,40,0.86);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; overflow-y: auto;
+}
+.gate-card {
+  background: var(--paper); border-radius: 5px; border-top: 3px solid var(--blue);
+  max-width: 520px; width: 100%; padding: 32px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+  max-height: 92vh; overflow-y: auto;
+}
+.gate-eyebrow {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--warn); margin-bottom: 12px;
+}
+.gate-card h2 {
+  font-family: Georgia, serif; font-size: 23px; font-weight: 600;
+  color: var(--navy); margin-bottom: 12px; text-wrap: balance;
+}
+.gate-lede { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 14px; }
+.gate-list { font-size: 12.5px; color: var(--ink-soft); padding-left: 20px; margin-bottom: 20px; }
+.gate-list li { margin-bottom: 6px; }
+
+.gate-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+.gate-tab {
+  flex: 1; padding: 10px; border: 1px solid var(--line); background: #fff;
+  font-size: 12.5px; cursor: pointer; border-radius: 3px; color: var(--ink-soft);
+}
+.gate-tab.is-active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+.gate-form { display: flex; flex-direction: column; gap: 12px; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field > span { font-size: 11.5px; color: var(--ink-soft); }
+.field input, .field select {
+  padding: 10px 12px; border: 1px solid var(--line); border-radius: 3px;
+  font-family: inherit; font-size: 13px; background: #fff; color: var(--ink);
+}
+.field input:focus, .field select:focus { outline: 2px solid var(--blue-light); outline-offset: 1px; }
+
+.gate-checks { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+.check {
+  display: flex; gap: 9px; align-items: flex-start;
+  background: #eef2f7; border: 1px solid var(--line); border-radius: 3px;
+  padding: 12px; font-size: 12px; color: var(--ink);
+}
+.check input { margin-top: 2px; flex-shrink: 0; }
+.check a { color: var(--blue); text-decoration: underline; }
+
+.gate-error {
+  color: var(--warn); font-size: 12.5px;
+  background: #fdf1f0; border: 1px solid #f0d3d0; border-radius: 3px; padding: 10px;
+}
+
+.gate-submit {
+  background: var(--navy); color: #fff; border: none; border-radius: 3px;
+  padding: 13px; font-size: 13px; letter-spacing: 0.04em; cursor: pointer;
+  margin-top: 4px;
+}
+.gate-submit:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.gate-secondary {
+  display: block; width: 100%; margin-top: 14px; background: none;
+  border: 1px solid var(--line); border-radius: 3px; padding: 11px;
+  font-size: 12.5px; color: var(--ink-soft); cursor: pointer;
+}
+.gate-footnote { font-size: 11px; color: var(--ink-soft); margin-top: 10px; text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  .gate-card { padding: 22px 18px; }
+}
