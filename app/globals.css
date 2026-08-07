@@ -762,7 +762,7 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.15; }
   gap: 48px; align-items: center;
 }
 .hero-logo { display: flex; justify-content: center; }
-.hero-logo img { width: 100%; max-width: 380px; height: auto; display: block; }
+.hero-logo img { width: 100%; max-width: 340px; height: auto; display: block; }
 
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; gap: 32px; }

@@ -87,7 +87,11 @@ export default async function HomePage() {
               width={455}
               height={340}
               priority
-              sizes="(max-width: 900px) 260px, 380px"
+              /* Source artwork is only 455px wide, so it is shown at 340px
+                 (1.34x) rather than filling the column — a larger slot would
+                 upscale and soften. A higher-resolution original would allow
+                 this to grow. */
+              sizes="(max-width: 900px) 220px, 340px"
             />
           </div>
         </div>
