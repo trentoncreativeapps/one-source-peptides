@@ -848,3 +848,43 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.15; }
 }
 .plan-billed strong { color: var(--navy); }
 .hero-note strong { color: var(--ink); }
+
+/* ---------- membership signup ---------- */
+
+.signup-box {
+  margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
+}
+.signup-box h2 {
+  font-size: 15px; font-weight: 700; color: var(--navy);
+  letter-spacing: 0; text-transform: none;
+}
+.signup-box--active { border-top-color: var(--teal); }
+.signup-box--pending { border-top-color: var(--amber); }
+.signup-price { font-size: 13.5px; color: var(--ink-soft); }
+.signup-price strong { color: var(--navy); font-size: 16px; }
+.signup-terms { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.signup-terms li {
+  position: relative; padding-left: 20px; font-size: 12.5px; color: var(--ink-soft);
+}
+.signup-terms li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal);
+}
+.signup-note { font-size: 12px; color: var(--ink-faint); line-height: 1.6; }
+.signup-note a { color: var(--blue); font-weight: 600; text-decoration: underline; }
+
+/* ---------- standing member offer ---------- */
+
+.member-offer {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  background: linear-gradient(100deg, rgba(14,124,134,0.07), rgba(11,87,194,0.06));
+  border: 1px solid rgba(14,124,134,0.22);
+  border-radius: var(--radius); padding: 16px 18px; margin-bottom: 22px;
+}
+.member-offer-head {
+  font-size: 14.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px;
+}
+.member-offer-sub { font-size: 12.5px; color: var(--ink-soft); }
+.pdp-buy .member-offer { margin: 16px 0 0; }

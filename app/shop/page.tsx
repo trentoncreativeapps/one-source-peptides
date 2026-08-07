@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { getMembership } from '@/lib/membership';
+import MemberOffer from '@/components/MemberOffer';
 import ProductCard, { type CardProduct, type CardVariant } from '@/components/ProductCard';
 import CatalogControls, { SORTS, type SortKey } from '@/components/CatalogControls';
 
@@ -19,7 +20,7 @@ export default async function ShopPage({ searchParams }: Props) {
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const { discountBp } = await getMembership();
+  const { discountBp, plan, isMember } = await getMembership();
 
   const [{ data: products, error: pErr }, { data: variants, error: vErr }, { data: categories }] =
     await Promise.all([
@@ -116,6 +117,8 @@ export default async function ShopPage({ searchParams }: Props) {
           </p>
         </div>
       )}
+
+      <MemberOffer plan={plan} isMember={isMember} />
 
       {rows.length === 0 ? (
         <div className="empty-state">

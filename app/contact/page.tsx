@@ -17,12 +17,11 @@ export default function ContactPage() {
 
       <div className="prose">
         <p>
-          A contact form is not connected yet. Until it is, please reach out by email so
-          nothing gets lost.
+          A contact form is not connected yet. Until it is, email reaches us directly.
         </p>
         <p className="contact-line">
           <strong>Email:</strong>{' '}
-          <span className="placeholder-inline">[business email to be published]</span>
+          <a href="mailto:info@onesourcepeptides.com">info@onesourcepeptides.com</a>
         </p>
         <p>
           For certificates of analysis, include the product name and lot number if you

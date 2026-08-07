@@ -1,13 +1,28 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { getMembership, money, formatPercent, monthlyEquivalent } from '@/lib/membership';
+import MembershipSignup from '@/components/MembershipSignup';
 
 export const metadata = { title: 'Research Membership — One Source Peptides' };
 
 export default async function MembershipPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const { plan, isMember, status, discountBp } = await getMembership();
+  const { plan, isMember, discountBp } = await getMembership();
+
+  // An open enrolment request, if any. Wrapped so a missing membership_signups
+  // table (migration 0005 not yet applied) degrades to "no request" instead of
+  // breaking the page.
+  let existingRequest: string | null = null;
+  if (user) {
+    const { data } = await supabase
+      .from('membership_signups')
+      .select('status')
+      .eq('owner_id', user.id)
+      .in('status', ['requested', 'awaiting_payment'])
+      .maybeSingle();
+    existingRequest = data?.status ?? null;
+  }
 
   if (!plan) {
     return (
@@ -45,33 +60,8 @@ export default async function MembershipPage() {
               and no minimum order.
             </p>
             <div className="hero-actions">
-              {isMember ? (
-                <span className="member-badge member-badge--lg">
-                  Membership active · {formatPercent(discountBp)} applied
-                </span>
-              ) : (
-                <>
-                  <span className="btn-primary is-disabled" aria-disabled="true">
-                    Join — {money(plan.price_cents)} today
-                  </span>
-                  <Link href="/shop" className="btn-outline">Browse the catalogue</Link>
-                </>
-              )}
+              <Link href="/shop" className="btn-outline">Browse the catalogue</Link>
             </div>
-            {!isMember && (
-              <p className="hero-note">
-                {isAnnual && (
-                  <>
-                    <strong>{money(plan.price_cents)} is charged once at sign-up</strong>,
-                    covering 12 months — that is {money(headlineAmount)} per month averaged
-                    over the year, not a monthly charge. Renews annually; cancel any time
-                    before renewal.{' '}
-                  </>
-                )}
-                Enrolment opens once payment processing is connected. Nothing is charged and
-                no card details are collected today.
-              </p>
-            )}
           </div>
 
           <aside className="plan-card">
@@ -104,6 +94,15 @@ export default async function MembershipPage() {
                 across the year.
               </p>
             </div>
+
+            <MembershipSignup
+              signedIn={Boolean(user)}
+              isMember={isMember}
+              existingRequest={existingRequest}
+              chargedLabel={money(plan.price_cents)}
+              perMonthLabel={money(headlineAmount)}
+              discountLabel={formatPercent(plan.discount_bp)}
+            />
           </aside>
         </div>
       </section>

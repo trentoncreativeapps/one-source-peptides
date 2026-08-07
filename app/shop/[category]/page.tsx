@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { getMembership } from '@/lib/membership';
+import MemberOffer from '@/components/MemberOffer';
 import ProductCard, { type CardProduct, type CardVariant } from '@/components/ProductCard';
 
 type Props = { params: Promise<{ category: string }> };
@@ -20,7 +21,7 @@ export default async function CategoryPage({ params }: Props) {
   const { category } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  const { discountBp } = await getMembership();
+  const { discountBp, plan, isMember } = await getMembership();
 
   const [{ data: cat }, { data: allCats }] = await Promise.all([
     supabase.from('categories').select('id, slug, name, visible').eq('slug', category).maybeSingle(),
@@ -90,6 +91,8 @@ export default async function CategoryPage({ params }: Props) {
           </p>
         </div>
       )}
+
+      <MemberOffer plan={plan} isMember={isMember} />
 
       <ul className="grid">
         {rows.map((p) => (
