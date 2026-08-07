@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import VialImage from '@/components/VialImage';
+import { applyDiscount, money, formatPercent } from '@/lib/membership';
 
 export type CardVariant = {
   id: string;
@@ -18,26 +19,32 @@ export type CardProduct = {
   purity_pct?: number | null;
 };
 
-function money(cents: number) {
-  return `$${(cents / 100).toFixed(2)}`;
-}
-
 /**
- * Single card used by the catalogue, category pages and the homepage rail, so
- * the logged-out state can only be defined once. When `signedIn` is false the
- * caller has already read from the price-free views — there is no price to
- * render, not a hidden one.
+ * Single card used by the catalogue, category pages, the homepage rail and the
+ * related-products rail, so the logged-out state is defined once. When
+ * `signedIn` is false the caller has already read from the price-free views —
+ * there is no price to render, not a hidden one.
+ *
+ * `discountBp` comes from the server-resolved membership record. A non-member
+ * gets 0 and sees list price; the member price is never computed client-side.
  */
 export default function ProductCard({
   product,
   variants,
   signedIn,
+  discountBp = 0,
 }: {
   product: CardProduct;
   variants: CardVariant[];
   signedIn: boolean;
+  discountBp?: number;
 }) {
   const priced = variants.filter((v) => v.price_cents != null && v.purchasable);
+  const cheapest = priced.length
+    ? Math.min(...priced.map((v) => v.price_cents as number))
+    : null;
+  const memberPrice = cheapest != null ? applyDiscount(cheapest, discountBp) : null;
+  const isMember = discountBp > 0;
 
   return (
     <li className="card">
@@ -61,17 +68,27 @@ export default function ProductCard({
             : <span className="size-chip is-empty">No sizes listed</span>}
         </div>
 
+        {/* Pack size is deliberately not shown: pack_size is currently seeded
+            from the supplier sheet (10-vial boxes) and the retail selling unit
+            is not yet confirmed. Showing "10 vials" before that is settled
+            would misdescribe what a customer receives. */}
         <div className="card-meta">
-          <span>{variants[0]?.pack_size ?? 10} vials / box</span>
-          <span>{product.purity_pct != null ? `${product.purity_pct}% purity` : 'Purity per COA'}</span>
+          <span>{product.purity_pct != null ? `${product.purity_pct}% purity` : '99%+ purity'}</span>
+          <span>COA per lot</span>
         </div>
 
         <div className="card-foot">
           {signedIn ? (
-            priced.length ? (
-              <span className="card-price">
-                from {money(Math.min(...priced.map((v) => v.price_cents as number)))}
-              </span>
+            cheapest != null ? (
+              isMember ? (
+                <span className="card-price">
+                  from {money(memberPrice as number)}
+                  <span className="price-was">{money(cheapest)}</span>
+                  <span className="member-flag">{formatPercent(discountBp)} member</span>
+                </span>
+              ) : (
+                <span className="card-price">from {money(cheapest)}</span>
+              )
             ) : (
               <span className="card-price is-muted">Pricing not yet set</span>
             )

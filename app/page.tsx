@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { getMembership } from '@/lib/membership';
 import TrustStrip from '@/components/TrustStrip';
 import ProductCard, { type CardProduct, type CardVariant } from '@/components/ProductCard';
 
@@ -28,6 +29,7 @@ const FAQ_PREVIEW = [
 export default async function HomePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const { discountBp } = await getMembership();
 
   const [{ count: productCount }, { count: variantCount }, { data: categories }, { data: recent }] =
     await Promise.all([
@@ -140,6 +142,7 @@ export default async function HomePage() {
                 product={p}
                 variants={bySize.get(p.id) ?? []}
                 signedIn={Boolean(user)}
+                discountBp={discountBp}
               />
             ))}
           </ul>

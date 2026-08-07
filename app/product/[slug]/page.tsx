@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { getMembership } from '@/lib/membership';
 import VialImage from '@/components/VialImage';
 import ProductCard, { type CardProduct, type CardVariant } from '@/components/ProductCard';
 import { RUO_LISTING_NOTICE } from '@/lib/legal';
@@ -25,6 +26,7 @@ export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const { discountBp } = await getMembership();
 
   const { data: product } = await supabase
     .from(user ? 'products' : 'products_public')
@@ -274,6 +276,7 @@ export default async function ProductPage({ params }: Props) {
                   product={r}
                   variants={relBySize.get(r.id) ?? []}
                   signedIn={Boolean(user)}
+                discountBp={discountBp}
                 />
               ))}
             </ul>

@@ -773,3 +773,78 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.15; }
   .brand-text { font-size: 15px; }
   .brand-mark { height: 26px; }
 }
+
+/* ---------- membership ---------- */
+
+.member-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(14,124,134,0.1); color: var(--teal);
+  border: 1px solid rgba(14,124,134,0.3); border-radius: 100px;
+  padding: 6px 13px; font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.member-badge--lg { padding: 11px 20px; font-size: 13px; border-radius: var(--radius); }
+
+.price-was {
+  margin-left: 8px; font-size: 12px; font-weight: 500;
+  color: var(--ink-faint); text-decoration: line-through;
+}
+.member-flag {
+  display: block; margin-top: 2px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--teal);
+}
+
+.plan-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-top: 3px solid var(--teal); border-radius: var(--radius);
+  padding: 26px; box-shadow: var(--shadow-card);
+}
+.plan-price { display: flex; align-items: baseline; gap: 6px; margin-bottom: 18px; }
+.plan-amount {
+  font-size: 40px; font-weight: 700; color: var(--navy);
+  letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+}
+.plan-interval { font-size: 14px; color: var(--ink-faint); }
+.plan-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.plan-list li {
+  position: relative; padding-left: 24px; font-size: 13.5px; color: var(--ink-soft);
+}
+.plan-list li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--teal);
+}
+.plan-list strong { color: var(--ink); }
+.plan-example {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line);
+}
+.plan-example-head {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px;
+}
+.plan-example p { font-size: 12.5px; color: var(--ink-soft); }
+.plan-example strong { color: var(--navy); }
+
+.hero-note { font-size: 12.5px; color: var(--ink-faint); margin-top: 14px; max-width: 52ch; }
+.btn-primary.is-disabled {
+  background: var(--line-strong); color: #fff; cursor: not-allowed;
+}
+
+.steps { list-style: none; counter-reset: step; display: grid; gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.steps li { counter-increment: step; }
+.steps li::before {
+  content: counter(step); display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 12px; font-weight: 700; margin-bottom: 10px;
+}
+.steps h3 { font-size: 15.5px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.steps p { font-size: 13px; color: var(--ink-soft); }
+.plan-billed {
+  font-size: 12.5px; color: var(--ink-soft); margin: -10px 0 18px;
+  padding-bottom: 14px; border-bottom: 1px solid var(--line);
+}
+.plan-billed strong { color: var(--navy); }
+.hero-note strong { color: var(--ink); }

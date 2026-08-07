@@ -34,6 +34,7 @@ const shopLinks = [
 const primaryNav = [
   { href: '/shop', label: 'All Peptides' },
   { href: '/build-a-kit', label: 'Build a Kit' },
+  { href: '/membership', label: 'Membership' },
   { href: '/coa-library', label: 'COA Library' },
   { href: '/wholesale', label: 'Wholesale' },
   { href: '/faq', label: 'FAQ' },
