@@ -1,65 +1,116 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import Link from 'next/link';
 import './globals.css';
 import { createClient } from '@/lib/supabase/server';
 import { signOut } from '@/app/auth/actions';
 import EntryGate from '@/components/EntryGate';
 
+// Self-hosted at build time — no CDN request, so nothing to be blocked.
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
 export const metadata: Metadata = {
   title: 'Research Catalog — One Source Peptides',
   description:
-    'High-purity peptides supplied strictly for laboratory research use. Not for human or animal use.',
+    'High-purity research peptides with per-lot certificates of analysis, supplied strictly for laboratory research use. Not for human or animal use.',
 };
+
+const shopLinks = [
+  { href: '/shop', label: 'All Peptides' },
+  { href: '/shop/vials', label: 'Vials' },
+  { href: '/shop/blends', label: 'Blends' },
+  { href: '/shop/bioregulators', label: 'Bioregulators' },
+];
+
+const companyLinks = [
+  { href: '/coa-library', label: 'COA Library' },
+  { href: '/wholesale', label: 'Wholesale' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const legalLinks = [
+  { href: '/terms', label: 'Terms of Service' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/refund-policy', label: 'Refund Policy' },
+];
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body>
-        <div className="ruo-bar">
+        {/* Announcement rail — both reference sites lead with one. Ours carries
+            the compliance notice rather than a promotion. */}
+        <div className="announce">
           <strong>Research Use Only.</strong> Not for human or animal use. Not a drug,
           food, or cosmetic.
         </div>
 
         <header className="site-header">
-          <nav className="nav">
+          <div className="header-inner">
             <Link href="/" className="brand">
               One Source <span>Peptides</span>
             </Link>
-            <div className="nav-links">
-              <Link href="/shop">Catalog</Link>
+
+            <nav className="main-nav" aria-label="Main">
+              {shopLinks.map((l) => (
+                <Link key={l.href} href={l.href}>{l.label}</Link>
+              ))}
               <Link href="/coa-library">COA Library</Link>
               <Link href="/wholesale">Wholesale</Link>
               <Link href="/faq">FAQ</Link>
-            </div>
-            <div className="nav-actions">
+            </nav>
+
+            <div className="header-actions">
               {user ? (
                 <form action={signOut}>
-                  <button type="submit" className="btn-ghost">Sign out</button>
+                  <button type="submit" className="btn-quiet">Sign out</button>
                 </form>
               ) : (
-                <Link href="/login" className="btn-ghost">Log in</Link>
+                <Link href="/login" className="btn-quiet">Sign in or register</Link>
               )}
             </div>
-          </nav>
+          </div>
         </header>
 
         <main>{children}</main>
 
         <footer className="site-footer">
-          <div className="footer-inner">
-            <nav className="footer-nav">
-              <Link href="/shop">Catalog</Link>
-              <Link href="/coa-library">COA Library</Link>
-              <Link href="/wholesale">Wholesale</Link>
-              <Link href="/faq">FAQ</Link>
-              <Link href="/terms">Terms</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/refund-policy">Refund Policy</Link>
-              <Link href="/contact">Contact</Link>
-            </nav>
+          <div className="footer-grid">
+            <div className="footer-about">
+              <p className="footer-brand">One Source <span>Peptides</span></p>
+              <p>
+                A supplier of research-grade peptides for laboratory and in-vitro
+                research, with per-lot identity and purity testing by HPLC and mass
+                spectrometry.
+              </p>
+            </div>
+
+            <div className="footer-col">
+              <h2>Shop</h2>
+              {shopLinks.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+            </div>
+
+            <div className="footer-col">
+              <h2>Company</h2>
+              {companyLinks.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+            </div>
+
+            <div className="footer-col">
+              <h2>Legal</h2>
+              {legalLinks.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+            </div>
+          </div>
+
+          <div className="footer-legal">
             <p className="disclaimer">
               FOR RESEARCH USE ONLY. NOT FOR HUMAN OR ANIMAL USE. All products offered on
               this site are intended solely for in-vitro laboratory research by qualified
