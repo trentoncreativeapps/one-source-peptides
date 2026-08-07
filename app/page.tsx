@@ -39,6 +39,7 @@ export default async function HomePage() {
       supabase
         .from(user ? 'products' : 'products_public')
         .select('id, slug, code, name, description, purity_pct')
+        .eq('listed', true)
         .order('created_at', { ascending: false })
         .limit(4),
     ]);

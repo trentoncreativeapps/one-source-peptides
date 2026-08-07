@@ -33,6 +33,7 @@ export default async function CategoryPage({ params }: Props) {
   const { data: products } = await supabase
     .from(user ? 'products' : 'products_public')
     .select('id, slug, code, name, description, purity_pct')
+        .eq('listed', true)
     .eq('category_id', cat.id)
     .order('name');
 
