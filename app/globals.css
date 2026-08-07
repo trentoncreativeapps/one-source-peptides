@@ -742,3 +742,34 @@ h1, h2, h3 { text-wrap: balance; letter-spacing: -0.02em; line-height: 1.15; }
 @media (max-width: 980px) {
   .kit { grid-template-columns: 1fr; }
 }
+
+/* ---------- brand lockups ---------- */
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-mark { height: 30px; width: auto; display: block; }
+.brand-text { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+.brand-text span { color: var(--blue); }
+
+.footer-mark {
+  height: 34px; width: auto; display: block; margin-bottom: 12px;
+  /* the mark's navy reads as a hole on the navy footer, so lift it */
+  filter: brightness(0) invert(1) opacity(0.92);
+}
+
+/* Hero becomes two columns once the logo is present */
+.hero-inner {
+  display: grid; grid-template-columns: 1.25fr 0.75fr;
+  gap: 48px; align-items: center;
+}
+.hero-logo { display: flex; justify-content: center; }
+.hero-logo img { width: 100%; max-width: 380px; height: auto; display: block; }
+
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .hero-logo { order: -1; justify-content: flex-start; }
+  .hero-logo img { max-width: 220px; }
+}
+@media (max-width: 620px) {
+  .brand-text { font-size: 15px; }
+  .brand-mark { height: 26px; }
+}

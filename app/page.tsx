@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import TrustStrip from '@/components/TrustStrip';
@@ -66,15 +67,28 @@ export default async function HomePage() {
       {/* 1 — Hero */}
       <section className="hero">
         <div className="hero-inner">
-          <p className="eyebrow">Laboratory reference materials</p>
-          <h1>Research-grade peptides, supplied for research use only.</h1>
-          <p className="hero-lede">
-            {productCount ?? 0} compounds across {variantCount ?? 0} sizes, each lot tested
-            by HPLC and mass spectrometry and shipped with its certificate of analysis.
-          </p>
-          <div className="hero-actions">
-            <Link href="/shop" className="btn-primary">Browse the catalogue</Link>
-            <Link href="/coa-library" className="btn-outline">View COA Library</Link>
+          <div className="hero-copy">
+            <p className="eyebrow">Laboratory reference materials</p>
+            <h1>Research-grade peptides, supplied for research use only.</h1>
+            <p className="hero-lede">
+              {productCount ?? 0} compounds across {variantCount ?? 0} sizes, each lot
+              tested by HPLC and mass spectrometry and shipped with its certificate of
+              analysis.
+            </p>
+            <div className="hero-actions">
+              <Link href="/shop" className="btn-primary">Browse the catalogue</Link>
+              <Link href="/coa-library" className="btn-outline">View COA Library</Link>
+            </div>
+          </div>
+          <div className="hero-logo">
+            <Image
+              src="/logo-lockup.png"
+              alt="One Source Peptides"
+              width={455}
+              height={340}
+              priority
+              sizes="(max-width: 900px) 260px, 380px"
+            />
           </div>
         </div>
       </section>

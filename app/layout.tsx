@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Image from 'next/image';
 import Link from 'next/link';
 import './globals.css';
 import { createClient } from '@/lib/supabase/server';
@@ -67,8 +68,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
         <header className="site-header">
           <div className="header-inner">
-            <Link href="/" className="brand">
-              One Source <span>Peptides</span>
+            {/* Icon mark plus a live-text wordmark: the supplied logo is a
+                stacked lockup whose wordmark would be unreadable at header
+                height, so the mark is cropped out and the name set in type. */}
+            <Link href="/" className="brand" aria-label="One Source Peptides — home">
+              <Image
+                src="/logo-mark.png"
+                alt=""
+                width={399}
+                height={224}
+                className="brand-mark"
+                priority
+              />
+              <span className="brand-text">One Source <span>Peptides</span></span>
             </Link>
 
             <nav className="main-nav" aria-label="Main">
@@ -111,6 +123,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <footer className="site-footer">
           <div className="footer-grid">
             <div className="footer-about">
+              <Image
+                src="/logo-mark.png"
+                alt=""
+                width={399}
+                height={224}
+                className="footer-mark"
+              />
               <p className="footer-brand">One Source <span>Peptides</span></p>
               <p>
                 A supplier of research-grade peptides for laboratory and in-vitro
