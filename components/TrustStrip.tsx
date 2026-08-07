@@ -1,29 +1,31 @@
 /**
- * The reference sites get much of their credibility from a claim strip under
- * the hero: "99%+ purity", "same-day shipping", "USA made".
+ * The claim strip under the hero. Both reference sites lead with four of these.
  *
- * Every claim below is one that can actually be substantiated today. Purity
- * percentage, shipping cutoff and manufacturing origin are deliberately absent
- * — there is no COA data loaded, no dispatch cutoff committed to, and the
- * compliance pack forbids stating figures that aren't confirmed. Add them here
- * once each is true and checkable.
+ * Purity and same-day shipping are confirmed by One Source. The shipping
+ * cutoff time is NOT yet confirmed, so the detail line stays general rather
+ * than naming an hour — goalphalabs commits to "before 12pm EST (M-F)", and
+ * a cutoff we miss is worse than one we don't advertise.
+ *
+ * Still unconfirmed, so still absent: whether testing is by an independent
+ * third-party lab (as opposed to in-house), and country of manufacture. Both
+ * reference sites claim these; add them here once verified.
  */
 const items = [
   {
+    label: '99%+ purity',
+    detail: 'Confirmed per lot, reported on the certificate',
+  },
+  {
     label: 'HPLC + MS tested',
-    detail: 'Identity and purity confirmed per lot',
+    detail: 'Identity and purity determined for every lot',
+  },
+  {
+    label: 'Same-day shipping',
+    detail: 'Orders placed before the daily cutoff, Mon–Fri',
   },
   {
     label: 'Certificate with every lot',
-    detail: 'Reported at time of shipment',
-  },
-  {
-    label: 'Research use only',
-    detail: 'Sold to qualified researchers and institutions',
-  },
-  {
-    label: 'Account-verified pricing',
-    detail: 'Catalogue open, ordering restricted',
+    detail: 'Supplied at time of shipment',
   },
 ];
 

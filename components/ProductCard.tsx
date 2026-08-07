@@ -41,14 +41,16 @@ export default function ProductCard({
 
   return (
     <li className="card">
-      <div className="card-image">
+      <Link href={`/product/${product.slug}`} className="card-image" aria-label={product.name}>
         <VialImage name={product.name} code={product.code} />
         <span className="card-tag">COA per lot</span>
-      </div>
+      </Link>
 
       <div className="card-body">
         <p className="card-code">{product.code}</p>
-        <h3 className="card-title">{product.name}</h3>
+        <h3 className="card-title">
+          <Link href={`/product/${product.slug}`}>{product.name}</Link>
+        </h3>
         {product.description && <p className="card-desc">{product.description}</p>}
 
         <div className="card-sizes">

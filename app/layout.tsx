@@ -79,6 +79,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               )}
             </div>
           </div>
+
+          {/* Mobile menu. <details> rather than JS so it works before hydration
+              and keeps keyboard behaviour for free. */}
+          <details className="mobile-menu">
+            <summary aria-label="Menu">
+              <span className="burger" aria-hidden="true" />
+              Menu
+            </summary>
+            <nav aria-label="Mobile">
+              {shopLinks.map((l) => (
+                <Link key={l.href} href={l.href}>{l.label}</Link>
+              ))}
+              {companyLinks.map((l) => (
+                <Link key={l.href} href={l.href}>{l.label}</Link>
+              ))}
+            </nav>
+          </details>
         </header>
 
         <main>{children}</main>

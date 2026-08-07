@@ -32,11 +32,11 @@ export default async function CoaLibraryPage() {
 
       {!error && rows.length === 0 && (
         <div className="empty-state">
-          <h2>No certificates published yet</h2>
+          <h2>Certificates are being published</h2>
           <p>
-            This library is live but empty: COA documents have not been collected into it.
-            Certificates are available on request in the meantime — see{' '}
-            <Link href="/contact">Contact</Link>.
+            Certificates exist for the catalogue and are being uploaded here together, once
+            the final set returns from testing. Until then they are available on request —
+            see <Link href="/contact">Contact</Link>.
           </p>
           <p className="empty-note">
             Each lot ships with its certificate regardless of what is published here.

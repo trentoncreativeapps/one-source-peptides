@@ -48,8 +48,8 @@ const faqs = [
     q: 'How fast is shipping, and what does it cost?',
     a: (
       <>
-        Not yet published. Shipping rates and the daily dispatch cutoff will be listed here
-        once they are confirmed.
+        Orders placed before the daily cutoff, Monday to Friday, ship the same business
+        day. The exact cutoff time and shipping rates will be listed here shortly.
       </>
     ),
   },
@@ -57,10 +57,10 @@ const faqs = [
     q: "What's your purity standard?",
     a: (
       <>
-        Purity is determined per lot by HPLC and reported on that lot&rsquo;s certificate of
-        analysis, rather than as a single site-wide figure. A headline purity percentage
-        will be published here once it can be substantiated against COA data across the
-        catalog.
+        99% or higher. Purity is confirmed for each lot by high-performance liquid
+        chromatography and reported on that lot&rsquo;s certificate of analysis, so the
+        figure you rely on is the one for the material you receive rather than a
+        site-wide average.
       </>
     ),
   },
