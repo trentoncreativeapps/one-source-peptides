@@ -25,8 +25,7 @@ export default async function ShopPage({ searchParams }: Props) {
     await Promise.all([
       supabase
         .from(user ? 'products' : 'products_public')
-        .select('id, slug, code, name, description, purity_pct, created_at')
-        .eq('listed', true),
+        .select('id, slug, code, name, description, purity_pct, created_at'),
       supabase
         .from(user ? 'product_variants' : 'product_variants_public')
         .select(

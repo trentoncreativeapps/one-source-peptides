@@ -31,7 +31,6 @@ export default async function ProductPage({ params }: Props) {
   const { data: product } = await supabase
     .from(user ? 'products' : 'products_public')
     .select('id, slug, code, name, description, research_summary, purity_pct, category_id')
-    .eq('listed', true)
     .eq('slug', slug)
     .maybeSingle();
 
@@ -64,7 +63,6 @@ export default async function ProductPage({ params }: Props) {
     ? await supabase
         .from(user ? 'products' : 'products_public')
         .select('id, slug, code, name, description, purity_pct')
-        .eq('listed', true)
         .eq('category_id', product.category_id)
         .neq('id', product.id)
         .limit(4)

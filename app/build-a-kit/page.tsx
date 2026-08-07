@@ -14,7 +14,6 @@ export default async function BuildAKitPage() {
     supabase
       .from(user ? 'products' : 'products_public')
       .select('id, name, code, category_id')
-      .eq('listed', true)
       .order('name'),
     supabase
       .from(user ? 'product_variants' : 'product_variants_public')
