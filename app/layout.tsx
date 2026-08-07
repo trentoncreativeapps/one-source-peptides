@@ -25,6 +25,17 @@ const shopLinks = [
   { href: '/shop/vials', label: 'Vials' },
   { href: '/shop/blends', label: 'Blends' },
   { href: '/shop/bioregulators', label: 'Bioregulators' },
+  { href: '/build-a-kit', label: 'Build a Kit' },
+];
+
+// Top nav stays short; categories live on the catalogue's own filter row and
+// in the footer, the way both reference sites handle it behind dropdowns.
+const primaryNav = [
+  { href: '/shop', label: 'All Peptides' },
+  { href: '/build-a-kit', label: 'Build a Kit' },
+  { href: '/coa-library', label: 'COA Library' },
+  { href: '/wholesale', label: 'Wholesale' },
+  { href: '/faq', label: 'FAQ' },
 ];
 
 const companyLinks = [
@@ -61,12 +72,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </Link>
 
             <nav className="main-nav" aria-label="Main">
-              {shopLinks.map((l) => (
+              {primaryNav.map((l) => (
                 <Link key={l.href} href={l.href}>{l.label}</Link>
               ))}
-              <Link href="/coa-library">COA Library</Link>
-              <Link href="/wholesale">Wholesale</Link>
-              <Link href="/faq">FAQ</Link>
             </nav>
 
             <div className="header-actions">

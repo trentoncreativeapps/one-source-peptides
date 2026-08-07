@@ -48,8 +48,8 @@ const faqs = [
     q: 'How fast is shipping, and what does it cost?',
     a: (
       <>
-        Orders placed before the daily cutoff, Monday to Friday, ship the same business
-        day. The exact cutoff time and shipping rates will be listed here shortly.
+        Orders placed before <strong>12pm PST</strong>, Monday to Friday, ship the same
+        business day. Shipping rates will be listed here shortly.
       </>
     ),
   },

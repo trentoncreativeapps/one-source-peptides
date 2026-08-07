@@ -1,10 +1,8 @@
 /**
  * The claim strip under the hero. Both reference sites lead with four of these.
  *
- * Purity and same-day shipping are confirmed by One Source. The shipping
- * cutoff time is NOT yet confirmed, so the detail line stays general rather
- * than naming an hour — goalphalabs commits to "before 12pm EST (M-F)", and
- * a cutoff we miss is worse than one we don't advertise.
+ * Purity (99%+) and same-day shipping with a 12pm PST cutoff are both
+ * confirmed by One Source.
  *
  * Still unconfirmed, so still absent: whether testing is by an independent
  * third-party lab (as opposed to in-house), and country of manufacture. Both
@@ -21,7 +19,7 @@ const items = [
   },
   {
     label: 'Same-day shipping',
-    detail: 'Orders placed before the daily cutoff, Mon–Fri',
+    detail: 'Orders placed before 12pm PST, Mon–Fri',
   },
   {
     label: 'Certificate with every lot',

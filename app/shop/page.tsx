@@ -1,22 +1,29 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import ProductCard, { type CardProduct, type CardVariant } from '@/components/ProductCard';
+import CatalogControls, { SORTS, type SortKey } from '@/components/CatalogControls';
 
 export const metadata = { title: 'Catalog — One Source Peptides' };
 
-export default async function ShopPage() {
+type Props = { searchParams: Promise<{ q?: string; sort?: string }> };
+
+type Row = CardProduct & { created_at?: string };
+
+export default async function ShopPage({ searchParams }: Props) {
+  const { q = '', sort = 'name-asc' } = await searchParams;
+  const query = q.trim();
+  const sortKey: SortKey = (Object.keys(SORTS) as SortKey[]).includes(sort as SortKey)
+    ? (sort as SortKey)
+    : 'name-asc';
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // The gate in practice: signed out reads the *_public views, which have no
-  // price column. anon has no grant on `products`, so a logged-out request
-  // cannot retrieve a price even by crafting its own query.
   const [{ data: products, error: pErr }, { data: variants, error: vErr }, { data: categories }] =
     await Promise.all([
       supabase
         .from(user ? 'products' : 'products_public')
-        .select('id, slug, code, name, description, purity_pct')
-        .order('name'),
+        .select('id, slug, code, name, description, purity_pct, created_at'),
       supabase
         .from(user ? 'product_variants' : 'product_variants_public')
         .select(
@@ -25,11 +32,7 @@ export default async function ShopPage() {
             : 'id, product_id, size_label, pack_size'
         )
         .order('sort_order'),
-      supabase
-        .from('categories')
-        .select('slug, name')
-        .eq('visible', true)
-        .order('sort_order'),
+      supabase.from('categories').select('slug, name').eq('visible', true).order('sort_order'),
     ]);
 
   if (pErr || vErr) {
@@ -41,7 +44,7 @@ export default async function ShopPage() {
     );
   }
 
-  const rows = (products ?? []) as unknown as CardProduct[];
+  const all = (products ?? []) as unknown as Row[];
   const allVariants = (variants ?? []) as unknown as (CardVariant & { product_id: string })[];
 
   const bySize = new Map<string, CardVariant[]>();
@@ -51,14 +54,40 @@ export default async function ShopPage() {
     bySize.set(v.product_id, list);
   }
 
+  // Filtering happens here rather than in a PostgREST `or()` string: the
+  // catalogue is 74 rows, and building that DSL from user input invites
+  // injection into the filter grammar for no benefit.
+  const needle = query.toLowerCase();
+  const matched = needle
+    ? all.filter((p) => {
+        const sizes = (bySize.get(p.id) ?? []).map((v) => v.size_label).join(' ');
+        return (
+          p.name.toLowerCase().includes(needle) ||
+          p.code.toLowerCase().includes(needle) ||
+          (p.description ?? '').toLowerCase().includes(needle) ||
+          sizes.toLowerCase().includes(needle)
+        );
+      })
+    : all;
+
+  const rows = [...matched].sort((a, b) => {
+    switch (sortKey) {
+      case 'name-desc': return b.name.localeCompare(a.name);
+      case 'newest': return (b.created_at ?? '').localeCompare(a.created_at ?? '');
+      case 'sizes':
+        return (bySize.get(b.id)?.length ?? 0) - (bySize.get(a.id)?.length ?? 0);
+      default: return a.name.localeCompare(b.name);
+    }
+  });
+
   return (
     <section className="section">
       <header className="section-head">
         <p className="eyebrow">Research catalogue</p>
         <h1>All peptides</h1>
         <p>
-          {rows.length} products · {allVariants.length} sizes · every lot tested by HPLC
-          and mass spectrometry
+          {all.length} products · {allVariants.length} sizes · every lot tested by HPLC and
+          mass spectrometry
         </p>
       </header>
 
@@ -69,6 +98,14 @@ export default async function ShopPage() {
         ))}
       </nav>
 
+      <CatalogControls
+        action="/shop"
+        q={query}
+        sort={sortKey}
+        resultCount={rows.length}
+        totalCount={all.length}
+      />
+
       {!user && (
         <div className="login-prompt">
           <p>
@@ -78,16 +115,24 @@ export default async function ShopPage() {
         </div>
       )}
 
-      <ul className="grid">
-        {rows.map((p) => (
-          <ProductCard
-            key={p.id}
-            product={p}
-            variants={bySize.get(p.id) ?? []}
-            signedIn={Boolean(user)}
-          />
-        ))}
-      </ul>
+      {rows.length === 0 ? (
+        <div className="empty-state">
+          <h2>Nothing matched “{query}”</h2>
+          <p>Try a compound name, a product code, or a size such as 10mg.</p>
+          <p><Link href="/shop">Clear the search</Link></p>
+        </div>
+      ) : (
+        <ul className="grid">
+          {rows.map((p) => (
+            <ProductCard
+              key={p.id}
+              product={p}
+              variants={bySize.get(p.id) ?? []}
+              signedIn={Boolean(user)}
+            />
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
